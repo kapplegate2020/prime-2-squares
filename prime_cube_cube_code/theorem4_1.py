@@ -91,35 +91,35 @@ def verifyException(n):
     return True
 
 
-badNs = set()
 
-for i in range(1, 4):
-    print(f"Lemma 4-2({i})")
-    possibleBadNs = list(map(int, open(f"lemma4-2-{i}/possibleBadNs.txt", "r").read().split()))
-    print(f"Amount: {len(possibleBadNs)}")
+if __name__ == "__main__":
+    badNs = set()
+
+    for i in range(1, 4):
+        print(f"Lemma 4-2({i})")
+        possibleBadNs = list(map(int, open(f"lemma4-2-{i}/possibleBadNs.txt", "r").read().split()))
+        print(f"Amount: {len(possibleBadNs)}")
+        smallBadNs = []
+        for x in possibleBadNs:
+            if getCubeCubePrime(x) == None:
+                if verifyException(x):
+                    smallBadNs.append(x)
+                    badNs.add(x)
+        print(f"Amount bad: {len(smallBadNs)}")
+        print(smallBadNs)
+        print()
+
+
+    #the above arguments do not work for t-1<=0
     smallBadNs = []
-    for x in possibleBadNs:
+    for x in range(1, 8):
         if getCubeCubePrime(x) == None:
-            if verifyException(x):
-                smallBadNs.append(x)
-                badNs.add(x)
-    print(f"Amount bad: {len(smallBadNs)}")
+            smallBadNs.append(x)
+            badNs.add(x)
+
+    print("small values of t")
     print(smallBadNs)
-    print()
 
-
-#the above arguments do not work for t-1<=0
-smallBadNs = []
-for x in range(1, 8):
-    if getCubeCubePrime(x) == None:
-        smallBadNs.append(x)
-        badNs.add(x)
-
-print("small values of t")
-print(smallBadNs)
-
-
-
-with open("../exceptions/prime_cube_cube.txt", "w") as f:
-    for x in sorted(badNs):
-        f.write(f"{x}\n")
+    with open("../exceptions/prime_cube_cube.txt", "w") as f:
+        for x in sorted(badNs):
+            f.write(f"{x}\n")
